@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earth Control Center</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css">
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+<h1>🌍 EARTH CONTROL CENTER</h1>
+
+
+<nav>
+<button onclick="window.location.href='index.html'">Map</button>
+<button onclick="window.location.href='news.html'">News</button>
+<button onclick="window.location.href='markets.html'">Markets</button>
+<button onclick="window.location.href='conflicts.html'">Conflicts</button>
+<button onclick="window.location.href='markets.html'">Markets</button>
+<button onclick="window.location.href='military.html'">Military</button>
+<button onclick="window.location.href='cables.html'">Cables</button>
+
+<button id="toggleFlights">Flights</button>
+<button id="toggleQuakes">Earthquakes</button>
+<button id="toggleSatellites">Satellites</button>
+<button id="toggleShips">Ships</button>
+
+</nav>
+
+</header>
+
+<div id="statusBar">
+SYSTEM STATUS: ONLINE | DATA STREAM ACTIVE
+</div>
+
+<div id="alertBanner"></div>
+
+<div id="dashboard">
+
+<div id="map"></div>
+
+<div id="sidepanel">
+
+<h2>📰 Global News</h2>
+<ul id="news"></ul>
+
+<h2>📈 Global Markets</h2>
+<ul id="markets"></ul>
+
+<h2>⚔ Global Conflicts</h2>
+<ul id="conflicts"></ul>
+
+<h2>⚠ Alerts</h2>
+<ul id="alerts"></ul>
+
+</div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+<script src="https://unpkg.com/leaflet-rotatedmarker/leaflet.rotatedMarker.js"></script>
+<script type="module" src="main.js"></script>
+
+</body>
+
+</html>

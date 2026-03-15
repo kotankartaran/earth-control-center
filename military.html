@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Global Military Monitor</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#050b16;
+color:#00eaff;
+}
+
+header{
+text-align:center;
+padding:10px;
+border-bottom:1px solid #00eaff;
+}
+
+nav button{
+margin:5px;
+padding:8px 12px;
+background:#071424;
+color:#00eaff;
+border:1px solid #00eaff;
+cursor:pointer;
+}
+
+nav button:hover{
+background:#00eaff;
+color:black;
+}
+
+#dashboard{
+display:flex;
+height:90vh;
+}
+
+#militaryMap{
+flex:1;
+}
+
+#panel{
+width:340px;
+background:#020617;
+border-left:1px solid #00eaff;
+padding:15px;
+overflow:auto;
+}
+
+#alerts{
+list-style:none;
+padding:0;
+}
+
+#alerts li{
+padding:10px;
+border-bottom:1px solid #00eaff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🪖 GLOBAL MILITARY ACTIVITY</h1>
+
+<nav>
+<button onclick="window.location.href='index.html'">Map</button>
+<button onclick="window.location.href='news.html'">News</button>
+<button onclick="window.location.href='markets.html'">Markets</button>
+<button onclick="window.location.href='conflicts.html'">Conflicts</button>
+<button onclick="window.location.href='military.html'">Military</button>
+</nav>
+
+</header>
+
+<div id="dashboard">
+
+<div id="militaryMap"></div>
+
+<div id="panel">
+
+<h2>Military Activity Alerts</h2>
+
+<ul id="alerts"></ul>
+
+</div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+const map = L.map("militaryMap").setView([25,10],2);
+
+L.tileLayer(
+"https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+).addTo(map);
+
+const alerts=document.getElementById("alerts");
+
+function addBase(lat,lon,name,type){
+
+const color = type==="Naval" ? "blue" :
+type==="Airbase" ? "orange" : "green";
+
+L.circleMarker(
+[lat,lon],
+{
+radius:8,
+color:color,
+fillOpacity:0.8
+})
+.addTo(map)
+.bindPopup("<b>"+name+"</b><br>"+type);
+
+}
+
+function addAlert(text){
+
+const li=document.createElement("li");
+li.textContent=text;
+alerts.appendChild(li);
+
+}
+
+
+// Example military locations
+
+const bases=[
+
+{lat:36.0,lon:36.6,name:"Incirlik Air Base",type:"Airbase"},
+{lat:26.3,lon:50.2,name:"US Naval Support Activity Bahrain",type:"Naval"},
+{lat:37.4,lon:127.1,name:"Osan Air Base",type:"Airbase"},
+{lat:31.9,lon:35.0,name:"Israeli Air Force Base",type:"Airbase"},
+{lat:25.0,lon:55.3,name:"UAE Naval Base",type:"Naval"},
+{lat:13.5,lon:144.8,name:"Guam Air Base",type:"Airbase"},
+{lat:35.0,lon:139.6,name:"Yokosuka Naval Base",type:"Naval"},
+{lat:52.5,lon:13.4,name:"NATO Military Command Europe",type:"Military"}
+
+];
+
+bases.forEach(b=>{
+addBase(b.lat,b.lon,b.name,b.type);
+});
+
+
+// Military alerts
+
+const activity=[
+
+"Russian aircraft activity near Baltic Sea",
+"US carrier strike group deployed in Mediterranean",
+"Chinese naval drills in South China Sea",
+"Israeli air operations over Gaza",
+"NATO military exercise in Eastern Europe"
+
+];
+
+activity.forEach(a=>{
+addAlert(a);
+});
+
+</script>
+
+</body>
+</html>

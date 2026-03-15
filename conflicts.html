@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Live Conflict Intelligence</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#050b16;
+color:#00eaff;
+}
+
+header{
+text-align:center;
+padding:10px;
+border-bottom:1px solid #00eaff;
+}
+
+nav button{
+margin:5px;
+padding:8px 12px;
+background:#071424;
+color:#00eaff;
+border:1px solid #00eaff;
+cursor:pointer;
+}
+
+nav button:hover{
+background:#00eaff;
+color:black;
+}
+
+#dashboard{
+display:flex;
+height:90vh;
+}
+
+#conflictMap{
+flex:1;
+}
+
+#panel{
+width:350px;
+background:#020617;
+border-left:1px solid #00eaff;
+padding:15px;
+overflow:auto;
+}
+
+#events{
+list-style:none;
+padding:0;
+}
+
+#events li{
+padding:10px;
+border-bottom:1px solid #00eaff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>⚔ LIVE GLOBAL CONFLICT INTELLIGENCE</h1>
+
+<nav>
+<button onclick="window.location.href='index.html'">Map</button>
+<button onclick="window.location.href='news.html'">News</button>
+<button onclick="window.location.href='markets.html'">Markets</button>
+<button onclick="window.location.href='conflicts.html'">Conflicts</button>
+<button onclick="window.location.href='military.html'">Military</button>
+</nav>
+
+</header>
+
+<div id="dashboard">
+
+<div id="conflictMap"></div>
+
+<div id="panel">
+
+<h2>Live Conflict Events</h2>
+
+<ul id="events"></ul>
+
+</div>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+const map = L.map("conflictMap").setView([20,0],2);
+
+L.tileLayer(
+"https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+).addTo(map);
+
+const eventList = document.getElementById("events");
+
+function addEvent(lat, lon, title, source){
+
+L.circleMarker(
+[lat,lon],
+{
+radius:8,
+color:"red",
+fillOpacity:0.8
+})
+.addTo(map)
+.bindPopup("<b>"+title+"</b><br>"+source);
+
+const li=document.createElement("li");
+li.innerHTML="<b>"+title+"</b><br>"+source;
+eventList.appendChild(li);
+
+}
+
+
+// Test conflict events (so page always shows something)
+
+const demoEvents = [
+
+{
+title:"Ukraine frontline fighting",
+source:"Eastern Ukraine",
+lat:48.5,
+lon:37.8
+},
+
+{
+title:"Airstrikes reported in Gaza",
+source:"Gaza Strip",
+lat:31.5,
+lon:34.47
+},
+
+{
+title:"Heavy fighting in Sudan",
+source:"Khartoum",
+lat:15.5,
+lon:32.5
+},
+
+{
+title:"Myanmar military clashes",
+source:"Sagaing Region",
+lat:23.0,
+lon:95.0
+},
+
+{
+title:"Naval tensions in South China Sea",
+source:"Spratly Islands",
+lat:10,
+lon:114
+}
+
+];
+
+demoEvents.forEach(e=>{
+addEvent(e.lat,e.lon,e.title,e.source);
+});
+
+</script>
+
+</body>
+</html>

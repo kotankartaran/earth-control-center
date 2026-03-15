@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Global News Monitor</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>📰 GLOBAL NEWS MONITOR</h1>
+
+<nav>
+<button onclick="window.location.href='index.html'">Map</button>
+<button onclick="window.location.href='news.html'">News</button>
+<button onclick="window.location.href='military.html'">Military</button>
+</nav>
+
+</header>
+
+<div class="news-container">
+
+<h2>Live Global News</h2>
+
+<div id="newsFeed"></div>
+
+</div>
+
+<script>
+
+async function loadNews(){
+
+const res = await fetch(
+"https://corsproxy.io/?https://newsapi.org/v2/top-headlines?language=en&pageSize=20&apiKey=2d3faedfbc1b4a07ad9c347ae1221a9d"
+);
+
+const data = await res.json();
+
+const feed = document.getElementById("newsFeed");
+
+feed.innerHTML="";
+
+data.articles.forEach(article=>{
+
+const card=document.createElement("div");
+card.className="news-card";
+
+card.innerHTML=`
+<img src="${article.urlToImage || ''}" class="news-img">
+
+<div class="news-content">
+
+<h3>
+<a href="${article.url}" target="_blank">
+${article.title}
+</a>
+</h3>
+
+<p>${article.source.name}</p>
+
+<p class="news-time">
+${new Date(article.publishedAt).toLocaleString()}
+</p>
+
+</div>
+`;
+
+feed.appendChild(card);
+
+});
+
+}
+
+loadNews();
+
+</script>
+
+</body>
+</html>
