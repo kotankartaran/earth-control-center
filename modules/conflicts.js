@@ -63,7 +63,7 @@ lon:51.41,
 countries:"Iran vs Israel",
 type:"Proxy conflict",
 year:"Ongoing",
-severity:"Medium",
+severity:"High",
 intensity:6,
 description:"Regional proxy conflict including missile strikes and cyber operations."
 },

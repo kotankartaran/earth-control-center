@@ -101,8 +101,10 @@ border-bottom:1px solid #00eaff;
 
 <script>
 
+// Create map
 const map = L.map("conflictMap").setView([20,0],2);
 
+// Base map layer
 L.tileLayer(
 "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 ).addTo(map);
@@ -122,13 +124,36 @@ fillOpacity:0.8
 .bindPopup("<b>"+title+"</b><br>"+source);
 
 const li=document.createElement("li");
+
 li.innerHTML="<b>"+title+"</b><br>"+source;
+
 eventList.appendChild(li);
 
 }
 
 
-// Test conflict events (so page always shows something)
+// Iran – US – Israel War (Major conflict)
+
+var iranWar = L.circleMarker([32.0, 53.0],{
+radius:12,
+color:"darkred",
+fillColor:"red",
+fillOpacity:0.9
+}).addTo(map);
+
+iranWar.bindPopup(`
+<h3>Iran - US - Israel War</h3>
+<b>Severity:</b> Critical<br>
+<b>Region:</b> Middle East<br>
+<b>Description:</b> Escalating regional conflict involving Iran, Israel and United States with missile and drone exchanges.
+`);
+
+const iranEvent = document.createElement("li");
+iranEvent.innerHTML = "<b>Iran - US - Israel War</b><br>Middle East Escalation";
+eventList.appendChild(iranEvent);
+
+
+// Other conflict events
 
 const demoEvents = [
 
